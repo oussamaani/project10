@@ -1,11 +1,21 @@
 // App.js
 import React from 'react';
 import LoginForm from './LoginForm';
+import  { useEffect } from 'react';
 
 import './App.css'; // Importez votre fichier CSS principal
 
 const App = () => {
+  useEffect(() => {
+    document.title = 'parfums';
+    // Optionally, you can return a cleanup function if needed
+    // return () => {
+    //   cleanup logic if necessary
+    // };
+  }, []);
   return (
+
+    
     <div className="app">
       <div className="login-container">
         <div className="facebook-logo">
