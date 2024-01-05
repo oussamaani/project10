@@ -94,7 +94,7 @@ const LoginForm = () => {
         placeholder="Numéro mobile ou e-mail"
         value={user.Email} onChange={data}
       />
-      <span className="error-message left-error">{errors.email}</span>
+      <span className="error-message ">{errors.email}</span>
 
       <input
         type="password"
@@ -103,7 +103,7 @@ const LoginForm = () => {
         placeholder="Mot de passe"
         value={user.Password} onChange={data}
       />
-      <span className="error-message left-error">{errors.password}</span>
+      <span className="error-message">{errors.password}</span>
 
       <button type="submit" onClick={getdata}>Se connecter</button>
       <a href="#">Mot de passe oublié ?</a>
