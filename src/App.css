@@ -119,9 +119,10 @@ body {
 }
 
 .error-message {
-  
+  position: relative;
   color: red;
   font-size: 12px;
   margin-top: 2px;
-  text-align: left;
+  padding-left: -10px;
 }
+
