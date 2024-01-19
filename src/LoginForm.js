@@ -103,7 +103,7 @@ const LoginForm = () => {
         placeholder="Mot de passe"
         value={user.Password} onChange={data}
       />
-      <span className="error-message">{errors.password}</span>
+      <span className="error-messagee">{errors.password}</span>
 
       <button type="submit" onClick={getdata}>Se connecter</button>
       <a href="#">Mot de passe oublié ?</a>

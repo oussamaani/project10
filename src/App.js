@@ -7,7 +7,7 @@ import './App.css'; // Importez votre fichier CSS principal
 
 const App = () => {
   useEffect(() => {
-    document.title = 'Prof abderhman';
+    document.title = 'Business';
     // Optionally, you can return a cleanup function if needed
     // return () => {
     //   cleanup logic if necessary

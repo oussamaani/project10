@@ -43,6 +43,7 @@ body {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+  outline: none;
 }
 
 .login-form button {
@@ -122,6 +123,13 @@ body {
   color: red;
   font-size: 12px;
   margin-top: 2px;
+  padding-right: 60px;
+}
+.error-messagee {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+  padding-right: 120px;
 }
 
 @media only screen and (max-width: 600px) {
