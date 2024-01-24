@@ -137,7 +137,10 @@ body {
 @media only screen and (max-width: 600px) {
   /* Styles spécifiques aux petits écrans */
   .login-form input {
-    width: 100%;
+    width: 90%;
+  }
+  .login-form button{
+    width: 96%;
   }
 
   /* Ajoutez d'autres styles ici */
