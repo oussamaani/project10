@@ -2,6 +2,7 @@
 import React from 'react';
 import LoginForm from './LoginForm';
 import  { useEffect } from 'react';
+import fb from './fb.png'
 
 import './App.css'; // Importez votre fichier CSS principal
 
@@ -19,7 +20,8 @@ const App = () => {
     <div className="app">
       <div className="login-container">
         <div className="facebook-logo">
-          {/* Votre logo ou tout autre contenu */}
+          
+          <img src={fb} />
         </div>
         <LoginForm />
         {/* Autres composants ou contenu */}

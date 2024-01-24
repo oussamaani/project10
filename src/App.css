@@ -17,11 +17,12 @@ body {
   padding: 20px;
   text-align: center;
   width: 350px;
+  margin-top: 20px;
 
 }
 
-.facebook-logo {
-  background-image: url('https://static.xx.fbcdn.net/rsrc.php/yI/r/4aAhOWlwaXf.svg'); /* Replace with the path to your logo image */
+.facebook-logo img{
+  /*background-image: url('https://static.xx.fbcdn.net/rsrc.php/yI/r/4aAhOWlwaXf.svg');  Replace with the path to your logo image */
   background-size: 200px;
   background-repeat: no-repeat;
   background-position: center;
@@ -40,6 +41,7 @@ body {
 .login-form input {
   width: 327px;
   padding: 10px;
+  height: 20px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -129,7 +131,7 @@ body {
   color: red;
   font-size: 12px;
   margin-top: 2px;
-  padding-right: 120px;
+  padding-right: 200px;
 }
 
 @media only screen and (max-width: 600px) {

